@@ -4,6 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const joi = require('joi');
+const verify = require('../authVerify')
 // const SECRET_KEY = "PRERNA_PRABH";
 
 const loginSchema = joi.object({
@@ -34,6 +35,10 @@ router.post('/', async(req,res)=>{
         res.status(400).send("invalid password")
     }
 
+})
+
+router.get('/getAllPost',verify,  (req,res)=>{
+    res.send("All Post Data")
 })
 
 

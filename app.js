@@ -27,6 +27,9 @@ app.use('/user/login', loginRoute);
 const signupRoute = require('./api/routes/signup');
 app.use('/user/signup', signupRoute);
 
+const tweetRoute = require('./api/routes/tweet')
+app.use('/user/login/createTweet', tweetRoute)
+
 const getAllPost = require('./api/routes/getAllPost');
 app.use('/getAllPost', getAllPost)
 
