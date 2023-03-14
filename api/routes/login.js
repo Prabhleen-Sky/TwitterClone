@@ -53,6 +53,50 @@ router.get('/getMyfollowing', verify, (req, res) => {
         .catch(error => res.status(500).json( {message: 'Server Error', err: error} ))
 })
 
+// updateUsername
+router.patch('/changeUsername', verify, (req,res) => {
+        const userEmail = req.body.email;
+        const newUsername = req.body.username;
+
+        User.find({ email : userEmail})
+        .then(result => { 
+           
+            updatedUser = {
+                _id: result[0]._id,
+                email: result[0].email,
+                username : newUsername
+            }
+
+            User.findByIdAndUpdate(result[0]._id, updatedUser)
+            .then(updatedResult => res.status(200).json({message : 'username updated successfully', update : updatedResult}))
+            .catch(err => res.status(500).json( {message: 'error occured in the DB', err: err} ))
+
+        })
+        .catch(err => res.status(500).json( {message: 'error occured in the DB', err: err} ))
+})
+
+// updateProfilename 
+router.patch('/changeProfilename', verify, (req,res) => {
+    const userEmail = req.body.email;
+    const newProfilename = req.body.profilename;
+
+    User.find({ email : userEmail})
+    .then(result => { 
+       
+        updatedUser = {
+            _id: result[0]._id,
+            email: result[0].email,
+            profilename : newProfilename
+        }
+
+        User.findByIdAndUpdate(result[0]._id, updatedUser)
+        .then(updatedResult => res.status(200).json({message : 'profilename updated successfully', update : updatedResult}))
+        .catch(err => res.status(500).json( {message: 'error occured in the DB', err: err} ))
+
+    })
+    .catch(err => res.status(500).json( {message: 'error occured in the DB', err: err} ))
+})
+
 // get ALL Post
 // router.get('/getAllPost',verify,  (req,res)=>{
 //     res.send("All Post Data")
