@@ -15,7 +15,9 @@ const signupSchema = joi.object({
     email : joi.string().required().email(),
     password : joi.string().required().min(8),
     username : joi.string().required(),
-    profilename : joi.string().required()
+    profilename : joi.string().required(),
+    followers : joi.number(),
+    following : joi.number()
 })
 
 router.post('/', async(req,res) => {
@@ -36,7 +38,9 @@ router.post('/', async(req,res) => {
                 email : req.body.email,
                 password : hashedPass,
                 username : req.body.username,
-                profilename : req.body.profilename
+                profilename : req.body.profilename,
+                followers : req.body.followers,
+                following : req.body.following 
             })
     
             const result = await user.save();

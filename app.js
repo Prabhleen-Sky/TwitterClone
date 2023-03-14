@@ -23,15 +23,19 @@ app.use('/home', homeRouter);
 
 const loginRoute = require('./api/routes/login');
 app.use('/user/login', loginRoute);
+app.use('/user/login/getMyFollowers', loginRoute)
+app.use('/user/login', loginRoute)
 
 const signupRoute = require('./api/routes/signup');
 app.use('/user/signup', signupRoute);
 
 const tweetRoute = require('./api/routes/tweet')
 app.use('/user/login/createTweet', tweetRoute)
+app.use('/user/login/getMyTweets', tweetRoute)
 
 const getAllPost = require('./api/routes/getAllPost');
 app.use('/getAllPost', getAllPost)
+app.use('/getPost', getAllPost)
 
 
 // error

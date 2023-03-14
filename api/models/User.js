@@ -31,14 +31,18 @@ const userSchema = new mongoose.Schema({
         default : "" 
     },
     followers : {
-        type : Array,
-        default : []
+        type : Number,
+        default : 0
     },
     following : {
-        type : Array,
-        default : []
+        type : Number,
+        default : 0
     },
     location : {
+        type : String,
+        default : ""
+    },
+    token : {
         type : String,
         default : ""
     }

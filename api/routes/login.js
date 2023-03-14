@@ -29,17 +29,34 @@ router.post('/', async(req,res)=>{
     const validPass = await bcrypt.compare(req.body.password, user.password)
 
     if(validPass){
-        const token = jwt.sign({_id:user._id}, `${process.env.Token_Secret}`)
-        res.header("auth-token", token).send({message : "login successful",token})
+        const token = jwt.sign({_id:user._id, email: user.email}, `${process.env.Token_Secret}`)
+        res.header("auth-token", token).send(token)
+        user.token = token;
+        // res.status(200).json(user);
     }else{
         res.status(400).send("invalid password")
     }
 
 })
 
-router.get('/getAllPost',verify,  (req,res)=>{
-    res.send("All Post Data")
+// getfollowers
+router.get('/', verify, (req, res) => {
+    User.find({email : req.body.email})
+        .then(result => res.status(200).json( {message: 'My Followers', followers : result[0].followers} ))
+        .catch(error => res.status(500).json( {message: 'Server Error', err: error} ))
 })
+
+// getfollowing
+router.get('/getMyfollowing', verify, (req, res) => {
+    User.find({email : req.body.email})
+        .then(result => res.status(200).json( {message: 'My Following', following : result[0].following} ))
+        .catch(error => res.status(500).json( {message: 'Server Error', err: error} ))
+})
+
+// get ALL Post
+// router.get('/getAllPost',verify,  (req,res)=>{
+//     res.send("All Post Data")
+// })
 
 
 

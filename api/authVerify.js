@@ -6,7 +6,7 @@ module.exports = function(req, res, next){
         return res.status(401).send("Access Denied");
     }
     try{
-        const verifyUser = jwt.verify(token, process.env.Token_Secret);
+        const verifyUser = jwt.verify(token, `${process.env.Token_Secret}`);
         console.log(verifyUser);
         req.user = verifyUser;
         next();
